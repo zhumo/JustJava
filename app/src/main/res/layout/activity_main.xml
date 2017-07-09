@@ -7,6 +7,8 @@
     android:padding="20dp"
     tools:context="com.example.android.justjava.MainActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,72 +17,98 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Toppings"
+            android:textAllCaps="true"
+            android:textColor="@android:color/darker_gray" />
+
+        <CheckBox
+            android:id="@+id/whipped_cream_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:checked="false"
+            android:paddingLeft="24dp"
+            android:textSize="16sp"
+            android:text="Whipped Cream" />
+
+        <CheckBox
+            android:id="@+id/chocolate_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:checked="false"
+            android:paddingLeft="24dp"
+            android:textSize="16sp"
+            android:text="Chocolate"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Quantity"
             android:textAllCaps="true"
-            android:layout_marginBottom="16dp"
             android:textColor="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
             <Button
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="-"
-                android:onClick="decrementQuantity"/>
+                android:onClick="decrementQuantity"
+                android:text="-" />
 
             <TextView
                 android:id="@+id/quantity_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
-                android:textSize="16sp"
-                android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                />
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
 
             <Button
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="+"
                 android:onClick="incrementQuantity"
-                />
+                android:text="+" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/order_summary_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginBottom="16dp"
             android:text="Order Summary"
             android:textAllCaps="true"
-            android:layout_marginBottom="16dp"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/order_summary_text_view"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/order_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order"
             android:onClick="submitOrder"
-            />
+            android:text="Order" />
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Order"
+        android:layout_alignParentBottom="true"
         android:onClick="resetOrder"
-        android:layout_alignParentBottom="true"/>
+        android:text="New Order" />
 
 </RelativeLayout>

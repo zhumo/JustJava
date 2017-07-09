@@ -3,6 +3,7 @@ package com.example.android.justjava;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -14,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int orderQuantity = 1;
     private static final double UNIT_PRICE = 5.0;
+    private static final double WHIPPED_CREAM_PRICE = 1.0;
+    private static final double CHOCOLATE_PRICE = 1.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +52,19 @@ public class MainActivity extends AppCompatActivity {
         orderSummaryTextView().setVisibility(View.GONE);
         orderButton().setVisibility(View.VISIBLE);
         orderSummaryTextView().setText("");
+        whippedCreamCheckBox().setChecked(false);
+        chocolateCheckBox().setChecked(false);
         redrawQuantity();
     }
 
     private String price() {
         double orderPrice = orderQuantity * UNIT_PRICE;
+        if (hasWhippedCream()) {
+            orderPrice += orderQuantity * WHIPPED_CREAM_PRICE;
+        }
+        if (hasChocolate()) {
+            orderPrice += orderQuantity * CHOCOLATE_PRICE;
+        }
         return NumberFormat.getCurrencyInstance().format(orderPrice);
     }
 
@@ -67,9 +78,15 @@ public class MainActivity extends AppCompatActivity {
     }
     private TextView orderSummaryLabel() { return (TextView) findViewById(R.id.order_summary_label); }
     private TextView orderSummaryTextView() { return (TextView) findViewById(R.id.order_summary_text_view); }
+    private CheckBox whippedCreamCheckBox() { return (CheckBox) findViewById(R.id.whipped_cream_checkbox); }
+    private boolean hasWhippedCream() { return whippedCreamCheckBox().isChecked(); }
+    private CheckBox chocolateCheckBox() { return (CheckBox) findViewById(R.id.chocolate_checkbox); }
+    private boolean hasChocolate() { return chocolateCheckBox().isChecked(); }
 
     private String orderSummaryText() {
         String text = "Name: Mo Zhu";
+        text += "\nAdd whipped cream? " + hasWhippedCream();
+        text += "\nAdd chocolate? " + hasChocolate();
         text += "\nQuantity: " + orderQuantity;
         text += "\nTotal: " + price();
         text += "\nThank you!";
