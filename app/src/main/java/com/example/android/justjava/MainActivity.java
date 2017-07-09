@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         orderSummaryTextView().setText("");
         whippedCreamCheckBox().setChecked(false);
         chocolateCheckBox().setChecked(false);
+        nameField().setText("");
         redrawQuantity();
     }
 
@@ -82,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasWhippedCream() { return whippedCreamCheckBox().isChecked(); }
     private CheckBox chocolateCheckBox() { return (CheckBox) findViewById(R.id.chocolate_checkbox); }
     private boolean hasChocolate() { return chocolateCheckBox().isChecked(); }
+    private EditText nameField() { return (EditText) findViewById(R.id.name_field); }
+    private String name() { return nameField().getText().toString(); }
 
     private String orderSummaryText() {
-        String text = "Name: Mo Zhu";
+        String text = "Name: " + name();
         text += "\nAdd whipped cream? " + hasWhippedCream();
         text += "\nAdd chocolate? " + hasChocolate();
         text += "\nQuantity: " + orderQuantity;
