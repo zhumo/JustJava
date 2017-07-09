@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.text.NumberFormat;
 
 /**
@@ -30,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
      * This method gets called when the order button is clicked
      */
     public void submitOrder(View view) {
-        orderSummaryTextView().setText(orderSummaryText());
-        orderSummaryLabel().setVisibility(View.VISIBLE);
-        orderSummaryTextView().setVisibility(View.VISIBLE);
-        orderButton().setVisibility(View.GONE);
+        Intent intent = orderSummaryEmail();
+        if(intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Oops, something went wrong.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void incrementQuantity(View view) {
@@ -56,10 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void resetOrder(View view) {
         orderQuantity = 1;
-        orderSummaryLabel().setVisibility(View.GONE);
-        orderSummaryTextView().setVisibility(View.GONE);
-        orderButton().setVisibility(View.VISIBLE);
-        orderSummaryTextView().setText("");
         whippedCreamCheckBox().setChecked(false);
         chocolateCheckBox().setChecked(false);
         nameField().setText("");
@@ -80,19 +81,22 @@ public class MainActivity extends AppCompatActivity {
     private void redrawQuantity() {
         quantityTextView().setText("" + orderQuantity);
     }
-
-    private TextView orderButton() { return (TextView) findViewById(R.id.order_button); }
     private TextView quantityTextView() {
         return (TextView) findViewById(R.id.quantity_text_view);
     }
-    private TextView orderSummaryLabel() { return (TextView) findViewById(R.id.order_summary_label); }
-    private TextView orderSummaryTextView() { return (TextView) findViewById(R.id.order_summary_text_view); }
     private CheckBox whippedCreamCheckBox() { return (CheckBox) findViewById(R.id.whipped_cream_checkbox); }
     private boolean hasWhippedCream() { return whippedCreamCheckBox().isChecked(); }
     private CheckBox chocolateCheckBox() { return (CheckBox) findViewById(R.id.chocolate_checkbox); }
     private boolean hasChocolate() { return chocolateCheckBox().isChecked(); }
     private EditText nameField() { return (EditText) findViewById(R.id.name_field); }
     private String name() { return nameField().getText().toString(); }
+    private Intent orderSummaryEmail() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Coffee Order Summary");
+        intent.putExtra(Intent.EXTRA_TEXT, orderSummaryText());
+        return intent;
+    }
 
     private String orderSummaryText() {
         String text = "Name: " + name();
