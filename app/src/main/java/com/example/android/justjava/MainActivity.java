@@ -43,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void resetOrder(View view) {
+        orderQuantity = 1;
+        orderSummaryLabel().setVisibility(View.GONE);
+        orderSummaryTextView().setVisibility(View.GONE);
+        orderButton().setVisibility(View.VISIBLE);
+        orderSummaryTextView().setText("");
+        redrawQuantity();
+    }
+
     private String price() {
         double orderPrice = orderQuantity * UNIT_PRICE;
         return NumberFormat.getCurrencyInstance().format(orderPrice);
