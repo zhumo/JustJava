@@ -25,19 +25,21 @@ public class MainActivity extends AppCompatActivity {
      * This method gets called when the order button is clicked
      */
     public void submitOrder(View view) {
-        orderQuantity = 1;
-        redraw();
+        orderSummaryTextView().setText(orderSummaryText());
+        orderSummaryLabel().setVisibility(View.VISIBLE);
+        orderSummaryTextView().setVisibility(View.VISIBLE);
+        orderButton().setVisibility(View.GONE);
     }
 
     public void incrementQuantity(View view) {
         orderQuantity ++;
-        redraw();
+        redrawQuantity();
     }
 
     public void decrementQuantity(View view) {
         if (orderQuantity > 1) {
             orderQuantity--;
-            redraw();
+            redrawQuantity();
         }
     }
 
@@ -46,24 +48,22 @@ public class MainActivity extends AppCompatActivity {
         return NumberFormat.getCurrencyInstance().format(orderPrice);
     }
 
-    private void redraw() {
-        redrawQuantity();
-        redrawPrice();
-    }
-
     private void redrawQuantity() {
         quantityTextView().setText("" + orderQuantity);
     }
 
+    private TextView orderButton() { return (TextView) findViewById(R.id.order_button); }
     private TextView quantityTextView() {
         return (TextView) findViewById(R.id.quantity_text_view);
     }
+    private TextView orderSummaryLabel() { return (TextView) findViewById(R.id.order_summary_label); }
+    private TextView orderSummaryTextView() { return (TextView) findViewById(R.id.order_summary_text_view); }
 
-    private void redrawPrice() {
-        priceTextView().setText(price());
-    }
-
-    private TextView priceTextView() {
-        return (TextView) findViewById(R.id.price_text_view);
+    private String orderSummaryText() {
+        String text = "Name: Mo Zhu";
+        text += "\nQuantity: " + orderQuantity;
+        text += "\nTotal: " + price();
+        text += "\nThank you!";
+        return text;
     }
 }
